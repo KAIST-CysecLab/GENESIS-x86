@@ -1,0 +1,37 @@
+# Compressed vmlinux
+src:arch/x86/boot/*
+src:arch/x86/boot/compressed/*
+src:arch/x86/nk/nk_handler.c
+# Not kernel soure code
+src:tools/*
+src:scripts/*
+# VDSO: they run as user-mode (ring 3) reference:arch/x86/entry/vdso/vdso.lds.S
+src:lib/vdso/*
+fun:clock_gettime
+fun:__vdso_clock_gettime
+fun:gettimeofday
+fun:__vdso_gettimeofday
+fun:getcpu
+fun:__vdso_getcpu
+fun:time
+fun:__vdso_time
+fun:clock_getres
+fun:__vdso_clock_getres
+# EFI code which runs at the init time
+src:drivers/firmware/efi/libstub/*
+# Early init
+fun:__startup_secondary_64
+# Early page table modification
+fun:(pgd|p4d|pud|pmd)_populate_safe
+# Early Enable SME (they are executed before setting up the shadow stack)
+fun:sme_enable
+fun:sme_encrypt_kernel
+fun:sme_active
+# Early interrupt
+fun:early_make_pgtable
+fun:__early_make_pgtable
+fun:early_fixup_exception
+# interrupt entry point (needed a manual instrumentation)
+fun:error_entry
+fun:sync_regs
+fun:ret_from_fork

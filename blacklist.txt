@@ -1,0 +1,4 @@
+src:arch/x86/boot/*
+src:arch/x86/boot/compressed/*
+src:arch/x86/nk/*
+fun:(pgd|p4d|pud|pmd)_populate_safe
